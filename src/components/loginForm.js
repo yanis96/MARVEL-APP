@@ -103,6 +103,8 @@ const FormContainer = styled.div`
          justify-content:center;
          flex-direction:column;
          margin-top:10px;
+         
+         
 `
 
 const StyledFrom = styled.form`
@@ -112,6 +114,7 @@ const StyledFrom = styled.form`
          width:90%;
          padding:2%;
          align-items:center;
+         
          
 `
 const StyledInput = styled.input`

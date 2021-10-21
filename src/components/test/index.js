@@ -3,7 +3,8 @@ import { useState,useEffect } from 'react';
 import Nav from '../nav';
 import styled from 'styled-components';
 import Footer from '../footer';
-
+import { useHistory } from 'react-router';
+import md5 from 'md5';
 
 const Test = () =>{     
    
@@ -11,12 +12,26 @@ const Test = () =>{
     const [currentPage, setCurrentPage] = useState(0);
     const [heros, setHeros] = useState([]);
     const [pages, setPages] = useState(0);
+    const history = useHistory();
+    
+
+    const handleClick = (key) =>{
+        history.push(`/details/${key}`);
+    }
     
     useEffect(()=>{
+        const publicKey = 'a0b450c2c826f89a387f1907f48f23b5';
+        const timeStamp = new Date().getMilliseconds();
+        const privateKey = '54c04b45cd42ea7a2f27173a927b40f572d6a699';
+        const hash = md5(`${timeStamp}${privateKey}${publicKey}`);
+        const generateUrl = 'https://gateway.marvel.com:443/v1/public/characters';
         axios({
             method:'GET',
-            url:'https://gateway.marvel.com:443/v1/public/characters?&ts=1&apikey=6b98c3f9368e05f4bbbee3a13e057550&hash=a3d2e876ab3832b3ccdb4e5841552a97',
+            url: generateUrl,
             params:{
+                ts:timeStamp,
+                apikey:publicKey,
+                hash:hash,
                 offset: valueOfset * currentPage
             }
         }).then(
@@ -59,9 +74,12 @@ const Test = () =>{
                     </StyledDiv1>
                     <Grille>
                         { heros.map(hero => 
-                            <div>
-                                <StyledDiv><StyledH3>{hero.name}</StyledH3></StyledDiv>
-                                <StledImg src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}></StledImg>
+                            <div 
+                                key={hero.id}
+                                onClick={()=>{handleClick(hero.id)}}
+                                >
+                                        <StyledDiv><StyledH3>{hero.name}</StyledH3></StyledDiv>
+                                        <StledImg src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}></StledImg>
                             </div>
                         )}
                     </Grille>

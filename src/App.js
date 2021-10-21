@@ -8,6 +8,7 @@ import { BrowserRouter as Router,Route,Switch,Redirect } from "react-router-dom"
 import Test from './components/test';
 import styled from 'styled-components';
 import Footer from './components/footer';
+import Details from './components/test/details';
 
 
 function App() {
@@ -15,7 +16,6 @@ function App() {
     <div>
         <Router>
             <Switch>
-
               <Route path='/' exact>
                   <StyledRootContainer>
                     <StyledContainer>
@@ -35,6 +35,10 @@ function App() {
 
               <Route path="/test">
                 <Test></Test>
+              </Route>
+
+              <Route path="/details/:id">
+                <Details></Details>
               </Route>
 
               <Redirect to="/"></Redirect>
@@ -58,6 +62,10 @@ const StyledContainer = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:center;
+    max-width:450px;
+    height:450px;
+    box-shadow: -15px -15px 15px rgba(255,255,255,0.2),
+                15px 15px 15px rgba(0,0,0,0.1);
 `
 
 
