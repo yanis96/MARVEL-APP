@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Footer from '../footer';
 import { useHistory } from 'react-router';
 import md5 from 'md5';
+import Loader from '../loader';
 
 const Test = () =>{     
    
@@ -13,6 +14,7 @@ const Test = () =>{
     const [heros, setHeros] = useState([]);
     const [pages, setPages] = useState(0);
     const history = useHistory();
+    const [isLoading, setIsLoading] = useState(false);
     
 
     const handleClick = (key) =>{
@@ -20,6 +22,7 @@ const Test = () =>{
     }
     
     useEffect(()=>{
+        setIsLoading(true);
         const publicKey = 'a0b450c2c826f89a387f1907f48f23b5';
         const timeStamp = new Date().getMilliseconds();
         const privateKey = '54c04b45cd42ea7a2f27173a927b40f572d6a699';
@@ -43,14 +46,16 @@ const Test = () =>{
                 console.log(response);
                 console.log(`current page : ${currentPage}`);
                 console.log(`pages : ${pages}`)
+                setIsLoading(false);
             }
         ).catch((err) => {
             console.log(err)
+            setIsLoading(false);
         });
             
     },[currentPage]);
 
-     
+    
 
     return(
         <PageContainer>
@@ -72,17 +77,20 @@ const Test = () =>{
                            }}> Next
                         </StyledButton>
                     </StyledDiv1>
-                    <Grille>
-                        { heros.map(hero => 
-                            <div 
-                                key={hero.id}
-                                onClick={()=>{handleClick(hero.id)}}
-                                >
-                                        <StyledDiv><StyledH3>{hero.name}</StyledH3></StyledDiv>
-                                        <StledImg src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}></StledImg>
-                            </div>
-                        )}
-                    </Grille>
+                    {isLoading ?
+                        <Loader/>:
+                        <Grille>
+                            { heros.map(hero => 
+                                <StyledDiv2 
+                                    key={hero.id}
+                                    onClick={()=>{handleClick(hero.id)}}
+                                    >
+                                            <StyledDiv><StyledH3>{hero.name}</StyledH3></StyledDiv>
+                                            <StledImg src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}></StledImg>
+                                </StyledDiv2>
+                            )}
+                        </Grille>
+                    }
             </WrapContent>
             <Footer></Footer>
         </PageContainer> 
@@ -139,6 +147,12 @@ const StyledDiv1 = styled.div`
     justify-content:space-around;
     margin-top:7px;
     
+`
+
+const StyledDiv2 = styled.div`
+   border-radius:15px;
+   box-shadow: 15px 15px 15px rgb(66, 64, 64),
+                -15px -15px 15px rgba(0,0,0,0.1);
 `
 
 
