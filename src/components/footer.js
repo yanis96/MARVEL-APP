@@ -4,7 +4,7 @@ const Footer = () => {
     return(
        
         <StyledFooter>
-             <p>© Yanis Bouzelha</p>  
+             <p>© Yan.B</p>  
         </StyledFooter>
         
         
@@ -16,7 +16,11 @@ const StyledFooter = styled.footer`
   display:flex;
   justify-content:center;
   font-family:Noto Sans Mono;
+  position:fixed;
+  bottom:0;
   color:white;
+  width:100%;
+  font-weight: bold;
 `
 
 export default Footer;

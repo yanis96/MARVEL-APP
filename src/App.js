@@ -52,6 +52,7 @@ function App() {
 const StyledRootContainer = styled.div`
    display:flex;
    justify-content:center;
+   height:100vh;
    
 `
 const StyledContainer = styled.div`

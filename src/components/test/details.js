@@ -34,7 +34,9 @@ const Details = (props) =>{
                console.log(response.data.data.results[0]);
                setDetail(response.data.data.results[0]);
             }
-        )
+        ).catch(e=>{
+            console.log(e);
+        })
     },[]);
     return(
        <PageContainer>
@@ -42,7 +44,21 @@ const Details = (props) =>{
                 <Nav></Nav>
                 <StyledDiv>
                       <StyledDiv1>
-                      
+                         <StyledH3>{detail.name}</StyledH3>
+                         <StyledImg src={`${detail?.thumbnail?.path}.${detail?.thumbnail?.extension}`}></StyledImg>
+                         <StyledHr></StyledHr>
+                         <StyledDiv2>
+                             <StyledH3>Description :</StyledH3>
+                             <StyledDiv3>
+                                 <StyledP>{
+                                     detail.description === ''? 
+                                         <p>Pas de description</p>
+                                     :
+                                         detail.description
+                                     }
+                                     </StyledP>
+                             </StyledDiv3>
+                         </StyledDiv2>
                       </StyledDiv1>
                 </StyledDiv>
             </WrapContent>
@@ -56,14 +72,21 @@ export default Details;
 
 /*Styled Components*/
 
+const StyledHr = styled.hr`
+   width:100%;
+   background:black;
+`
 
 const StyledP = styled.p`
   font-family: Noto Sans Mono;
   color:white;
+  font-size: smaller;
+  color:black;
 `
-const StyledH2 = styled.h2`
+const StyledH3 = styled.h3`
   font-family: Noto Sans Mono;
   color:white;
+  font-weight: bold;
 `
 
 const PageContainer = styled.div`
@@ -79,15 +102,45 @@ const WrapContent = styled.div`
 `
 
 const StyledDiv = styled.div`
-    background:yellow;
     margin:0px;
+    height:89vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
 `
 
 const StyledDiv1 = styled.div`
     padding:15px;
+    background:grey;
+    height:auto;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+    border-radius:15px;
+    padding-top:0px;
+    width:35%;
+`
+
+const StyledDiv2 = styled.div`
+    display:flex;
+    justify-content:flex-start;
+    flex-direction:column;
+    width:100%;
+    padding:5px;
     
 `
+
+const StyledDiv3 = styled.div`
+  flex:1;
+  height:5px;
+  display:flex;
+  justify-content:center;
+  max-width:45vw;
+  align-items:center;
+`
+
 
 const StyledImg = styled.img`
     width: 300px;

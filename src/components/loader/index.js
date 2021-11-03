@@ -24,10 +24,10 @@ const LoaderDiv = styled.div`
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
+  border: 6px solid #E12929;
+  border-color: #E12929 transparent #E12929 transparent;
   animation: lds-dual-ring 1.2s linear infinite;
-}
+  }
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);

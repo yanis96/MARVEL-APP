@@ -104,7 +104,6 @@ const FormContainer = styled.div`
          flex-direction:column;
          margin-top:10px;
          
-         
 `
 
 const StyledFrom = styled.form`
